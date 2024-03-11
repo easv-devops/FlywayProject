@@ -12,11 +12,7 @@ services:
     image: flyway/flyway
     volumes:
       - ./db/migration:/flyway/sql # Maps the migration files to the container
+      - ./db:/flyway/conf # Maps the configuration file to the container
     depends_on:
       - db
-    command: 
-      -url=jdbc:mariadb://db:3306/blog-database 
-      -connectRetries=10
-      -user=user 
-      -password=password 
-      migrate
+    command: migrate
