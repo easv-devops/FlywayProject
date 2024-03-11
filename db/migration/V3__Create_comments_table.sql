@@ -1,0 +1,9 @@
+CREATE TABLE Comments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  post_id INT NOT NULL,
+  user_id INT NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES Posts(id),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);

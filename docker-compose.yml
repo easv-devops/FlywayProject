@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog-database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3336:3306" # Enables me to browse the database using a database client on my host machine using port 3336
+  flyway:
+    image: flyway/flyway
+    volumes:
+      - ./db/migration:/flyway/sql # Maps the migration files to the container
+    depends_on:
+      - db
+    command: 
+      -url=jdbc:mariadb://db:3306/blog-database 
+      -connectRetries=10
+      -user=user 
+      -password=password 
+      migrate
